@@ -104,10 +104,10 @@ Cada pipeline pode ser agendado para execução automática (ex: diariamente) ou
 
 ## 📊 Dashboards no Power BI
 
-🗺️ Mapa de vendas por estado (mapa e gráfico de barras)
-📦 Produtos mais vendidos
-👥 Clientes mais ativos
-📉 Evolução de vendas (linha temporal)
+- 🗺️ Mapa de vendas por estado (mapa e gráfico de barras)
+- 📦 Produtos mais vendidos
+- 👥 Clientes mais ativos
+- 📉 Evolução de vendas (linha temporal)
 
 > Os dashboards foram construídos diretamente no Power BI dentro do Fabric, com conexão nativa ao Lakehouse.
 
@@ -117,52 +117,14 @@ Cada pipeline pode ser agendado para execução automática (ex: diariamente) ou
 
 ## ⚡ Boas Práticas de Performance
 
-Armazenamento em Delta Lake (compactação + versionamento)
-Partitioning nas tabelas Silver e Gold (estado, data)
-Reuso de notebooks como módulos reutilizáveis
-Separação clara de responsabilidades entre camadas
-ETL incremental com controle de timestamp futuro (opcional)
+- Armazenamento em Delta Lake (compactação + versionamento)
+- Partitioning nas tabelas Silver e Gold (estado, data)
+- Reuso de notebooks como módulos reutilizáveis
+- Separação clara de responsabilidades entre camadas
+- ETL incremental com controle de timestamp futuro (opcional)
 
 ---
 
-## 📁 Estrutura do Projeto
-
-crm-analytics-fabric/
-├── notebooks/
-│   ├── geracao_dados.ipynb
-│   ├── coleta_api_ibge.ipynb
-│   ├── bronze_to_silver.ipynb
-│   └── silver_to_gold.ipynb
-├── pipelines/
-│   ├── etl_bronze_to_silver.json
-│   ├── etl_silver_to_gold.json
-│   └── api_coleta_ibge.json
-├── modelagem/
-│   └── modelo_dimensional.drawio
-├── imagens/
-│   └── dashboard.png
-├── README.md
-
-## 📁 Estrutura do Projeto
-
-```text
-crm-analytics-fabric/
-├── notebooks/
-│   ├── geracao_dados.ipynb
-│   ├── coleta_api_ibge.ipynb
-│   ├── bronze_to_silver.ipynb
-│   └── silver_to_gold.ipynb
-├── pipelines/
-│   ├── etl_bronze_to_silver.json
-│   ├── etl_silver_to_gold.json
-│   └── api_coleta_ibge.json
-├── modelagem/
-│   └── modelo_dimensional.drawio
-├── imagens/
-│   └── dashboard.png
-└── README.md
-
-```
 ## 📁 Estrutura do Projeto
 
 ```plaintext
