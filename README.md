@@ -1,6 +1,6 @@
 # 📊 CRM Analytics com Microsoft Fabric
 
-Este projeto tem como objetivo simular uma solução completa de CRM Analytics utilizando arquitetura moderna de dados baseada no Microsoft Fabric. Inclui geração de dados sintéticos, ingestão em Lakehouse, transformação com PySpark, arquitetura Medallion, visualização com Power BI e práticas de segurança e performance.
+Este projeto simula uma solução moderna de CRM Analytics utilizando a plataforma Microsoft Fabric. A solução envolve a geração de dados sintéticos e também a integração com dados reais via API pública, armazenados em Lakehouse com arquitetura Medallion, processamento e transformação com PySpark, controle de versionamento via Delta Lake, automação de pipelines e visualização interativa com Power BI.
 
 ---
 
@@ -10,7 +10,8 @@ Este projeto tem como objetivo simular uma solução completa de CRM Analytics u
 - Lakehouse (Delta Lake)
 - Power BI
 - PySpark (via notebooks no Fabric)
-- Python (com Faker)
+- Pipelines do Fabric
+- Python (com Faker e requests)
 - SQL (DAX, Spark SQL)
 
 ---
@@ -20,30 +21,32 @@ Este projeto tem como objetivo simular uma solução completa de CRM Analytics u
 Este projeto segue o padrão Medallion para organização de dados:
 
 ### 🥉 Bronze – Raw Layer
-> Dados brutos gerados com Faker, sem tratamento ou limpeza.
+> Armazenamento de dados brutos, simulados e reais, sem transformações.
 
-| Tabela               | Descrição                   |
-|----------------------|-----------------------------|
-| `bronze_clientes`    | Dados brutos de clientes     |
-| `bronze_produtos`    | Produtos simulados           |
-| `bronze_vendas`      | Histórico cru de vendas      |
+| Tabela               | Fonte                      | Descrição                             |
+|----------------------|----------------------------|----------------------------------------|
+| `bronze_clientes`    | Faker                      | Clientes fictícios                     |
+| `bronze_produtos`    | Faker                      | Produtos com categorias e preços       |
+| `bronze_vendas`      | Faker                      | Histórico de compras simuladas         |
+| `bronze_estados_ibge`| API IBGE                   | Lista de estados brasileiros           |
 
 ---
 
 ### 🥈 Silver – Clean Layer
-> Dados limpos, com joins e normalizações aplicadas.
+> Dados tratados, com schemas padronizados, tipos ajustados e joins aplicados.
 
 | Tabela               | Descrição                          |
 |----------------------|------------------------------------|
-| `dim_cliente`        | Dimensão de clientes limpa         |
+| `dim_cliente`        | Dimensão de clientes               |
 | `dim_produto`        | Dimensão de produtos               |
-| `dim_tempo`          | Datas do período de análise        |
-| `fato_vendas`        | Fato com chaves e medidas          |
+| `dim_tempo`          | Dimensão temporal (2 anos)         |
+| `dim_regional`       | Dimensão geográfica padronizada    |
+| `fato_vendas`        | Fato com chaves e métricas         |
 
 ---
 
 ### 🥇 Gold – Business Layer
-> Dados prontos para análise e dashboards.
+> Dados prontos para análise de negócio, agregações e indicadores.
 
 | Tabela                   | Descrição                           |
 |--------------------------|-------------------------------------|
@@ -62,23 +65,63 @@ Este projeto segue o padrão Medallion para organização de dados:
 
 ---
 
-## ⚡ Boas Práticas de Performance
+## 🕒 Controle de Versão de Dados (Delta Time Travel)
 
-- Escrita em **formato Delta Lake** (otimizado para leitura incremental)
-- Uso de **partitioning** nas tabelas Silver e Gold (por estado ou por data)
-- Carga organizada em camadas para **reduzir retrabalho**
-- Uso de **notebooks modulares e reutilizáveis** para manter organização
+Este projeto utiliza Delta Lake como formato de armazenamento, permitindo versionamento automático de todas as tabelas. Isso possibilita:
+
+- Recuperar o estado anterior de uma tabela
+- Auditar transformações e histórico de carga
+- Refazer análises com base em versões antigas
+
+Exemplo de uso no notebook:
+
+```sql
+-- Consultar versão anterior da fato_vendas usando SQL
+SELECT * FROM silver.fato_vendas VERSION AS OF 3
+```
+```PySpark:
+-- Consultar versão anterior da fato_vendas usando PySpark
+df_v2 = spark.read.format("delta") \
+    .option("versionAsOf", 3) \
+    .load("Tables/silver/fato_vendas")
+```
+
+## ⚙️ Automação com Pipelines
+
+Todos os processos de ETL são automatizados por Pipelines do Microsoft Fabric.
+
+🔁 Pipelines Criados
+
+| Pipeline                   | Etapas                           |
+|--------------------------|-------------------------------------|
+| `etl_bronze_to_silver`   | Limpeza, casting, joins, escrita na camada Silver          |
+| `etl_silver_to_gold`     | Agregações e geração de indicadores finais      |
+| `api_coleta_ibge`           | Coleta e atualização de dados reais da API IBGE              |
+
+Cada pipeline pode ser agendado para execução automática (ex: diariamente) ou manual.
 
 ---
 
 ## 📊 Dashboards no Power BI
 
-- Vendas por estado (mapa e gráfico de barras)
-- Produtos mais vendidos
-- Clientes mais ativos
-- Evolução de vendas por data
+🗺️ Mapa de vendas por estado (mapa e gráfico de barras)
+📦 Produtos mais vendidos
+👥 Clientes mais ativos
+📉 Evolução de vendas (linha temporal)
 
 > Os dashboards foram construídos diretamente no Power BI dentro do Fabric, com conexão nativa ao Lakehouse.
+
+📷 Imagens estão disponíveis na pasta /imagens/dashboard.png.
+
+---
+
+## ⚡ Boas Práticas de Performance
+
+Armazenamento em Delta Lake (compactação + versionamento)
+Partitioning nas tabelas Silver e Gold (estado, data)
+Reuso de notebooks como módulos reutilizáveis
+Separação clara de responsabilidades entre camadas
+ETL incremental com controle de timestamp futuro (opcional)
 
 ---
 
@@ -86,34 +129,71 @@ Este projeto segue o padrão Medallion para organização de dados:
 
 crm-analytics-fabric/
 ├── notebooks/
-│ ├── geracao_dados.ipynb
-│ ├── bronze_to_silver.ipynb
-│ └── silver_to_gold.ipynb
+│   ├── geracao_dados.ipynb
+│   ├── coleta_api_ibge.ipynb
+│   ├── bronze_to_silver.ipynb
+│   └── silver_to_gold.ipynb
+├── pipelines/
+│   ├── etl_bronze_to_silver.json
+│   ├── etl_silver_to_gold.json
+│   └── api_coleta_ibge.json
 ├── modelagem/
-│ └── modelo_dimensional.drawio
+│   └── modelo_dimensional.drawio
 ├── imagens/
-│ └── dashboard.png
+│   └── dashboard.png
 ├── README.md
 
+## 📁 Estrutura do Projeto
 
+```text
+crm-analytics-fabric/
+├── notebooks/
+│   ├── geracao_dados.ipynb
+│   ├── coleta_api_ibge.ipynb
+│   ├── bronze_to_silver.ipynb
+│   └── silver_to_gold.ipynb
+├── pipelines/
+│   ├── etl_bronze_to_silver.json
+│   ├── etl_silver_to_gold.json
+│   └── api_coleta_ibge.json
+├── modelagem/
+│   └── modelo_dimensional.drawio
+├── imagens/
+│   └── dashboard.png
+└── README.md
+
+```
+## 📁 Estrutura do Projeto
+
+```plaintext
+crm-analytics-fabric/
+├── notebooks/
+│   ├── geracao_dados.ipynb
+│   ├── coleta_api_ibge.ipynb
+│   ├── bronze_to_silver.ipynb
+│   └── silver_to_gold.ipynb
+├── pipelines/
+│   ├── etl_bronze_to_silver.json
+│   ├── etl_silver_to_gold.json
+│   └── api_coleta_ibge.json
+├── modelagem/
+│   └── modelo_dimensional.drawio
+├── imagens/
+│   └── dashboard.png
+├── README.md
+```
 ---
 
-## 🧠 Aprendizados Demonstrados
+## 🧠 Competências Demonstrados
 
-- Modelagem dimensional (estrela)
-- Lakehouse architecture
-- Medallion (Bronze, Silver, Gold)
-- ETL com PySpark
-- Visualização com Power BI
-- Boas práticas de dados: segurança, performance, governança
-
----
-
-## 🧩 Próximos Passos
-
-- [ ] Implementar dados reais via API (ou datasets públicos)
-- [ ] Adicionar versionamento de dados (Delta Time Travel)
-- [ ] Automatizar ETL com Pipelines no Fabric
+✔️ Modelagem dimensional (estrela)
+✔️ Lakehouse Architecture
+✔️ Arquitetura Medallion (Bronze → Silver → Gold)
+✔️ ETL em PySpark
+✔️ Delta Time Travel (versionamento de dados)
+✔️ Automação com Pipelines do Fabric
+✔️ Visualização com Power BI
+✔️ Segurança e boas práticas de performance
 
 ---
 
