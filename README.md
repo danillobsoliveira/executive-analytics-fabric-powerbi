@@ -79,8 +79,8 @@ Exemplo de uso no notebook:
 -- Consultar versão anterior da fato_vendas usando SQL
 SELECT * FROM silver.fato_vendas VERSION AS OF 3
 ```
-```PySpark:
--- Consultar versão anterior da fato_vendas usando PySpark
+```python
+# Consultar versão anterior da fato_vendas usando PySpark
 df_v2 = spark.read.format("delta") \
     .option("versionAsOf", 3) \
     .load("Tables/silver/fato_vendas")
@@ -148,14 +148,14 @@ crm-analytics-fabric/
 
 ## 🧠 Competências Demonstrados
 
-✔️ Modelagem dimensional (estrela)
-✔️ Lakehouse Architecture
-✔️ Arquitetura Medallion (Bronze → Silver → Gold)
-✔️ ETL em PySpark
-✔️ Delta Time Travel (versionamento de dados)
-✔️ Automação com Pipelines do Fabric
-✔️ Visualização com Power BI
-✔️ Segurança e boas práticas de performance
+- ✔️ Modelagem dimensional (estrela)
+- ✔️ Lakehouse Architecture
+- ✔️ Arquitetura Medallion (Bronze → Silver → Gold)
+- ✔️ ETL em PySpark
+- ✔️ Delta Time Travel (versionamento de dados)
+- ✔️ Automação com Pipelines do Fabric
+- ✔️ Visualização com Power BI
+- ✔️ Segurança e boas práticas de performance
 
 ---
 
