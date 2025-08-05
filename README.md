@@ -60,24 +60,58 @@ This multi-workspace strategy aligns with enterprise best practices in **data pl
 
 ## 🔐 Security and Access Management
 
-This project follows best practices for data access governance using **RBAC (Role-Based Access Control)** and the **Principle of Least Privilege (PoLP)** to ensure secure and organized collaboration between different data roles in Microsoft Fabric.
+This project adopts **RBAC (Role-Based Access Control)** and the **Principle of Least Privilege (PoLP)** to manage access and responsibilities across environments, ensuring secure and traceable collaboration across the data lifecycle.
 
-1. **Create Azure Entra users**  
-   Two internal users were created to simulate real enterprise roles:
-   - [`dataEngineer@yourdomain.com`](images/security/user-data-engineer.png)
-   - [`dataAnalyst@yourdomain.com`](images/security/user-data-analyst.png)
+### 👥 1. Azure Entra Users
 
-2. **Create Azure Entra security groups**
-   - [`Data Engineers`](images/security/group-data-engineers.png): Group of Data Engineers responsible for designing, building, and maintaining scalable data pipelines, lakehouses, and transformations.
-   - [`Data Analysts`](images/security/group-data-analysts.png): Group of Data Analysts focused on exploring, interpreting, and visualizing business data to generate insights.
+Two simulated enterprise users were created:
 
-3. **Create dedicated workspaces in Fabric**
-   - [`CRM_Engineering_Dev`](images/infra/workspace-crm-engineering-dev.png): Workspace for data engineering tasks – ingestion and transformation of data (Bronze & Silver layers).
-   - [`CRM_Analytics_Dev`](images/infra/workspace-crm-analytics-dev.png): Workspace for curated data and reporting – Gold layer, semantic models, and Power BI dashboards.
+- [`dataEngineer@yourdomain.com`](./images/security/user-data-engineer.png)
+- [`dataAnalyst@yourdomain.com`](./images/security/user-data-analyst.png)
 
-4. **Assign roles to groups within workspaces**
-   - In [`CRM_Engineering_Dev`](images/security/access-crm-engineering-dev.png), the **Data Engineers** group was added as `Contributors`.
-   - In [`CRM_Analytics_Dev`](images/security/access-crm-analytics-dev.png), the **Data Analysts** group was added as `Contributors`.
+---
+
+### 👥 2. Azure Entra Security Groups
+
+Security groups were created to simplify access management across workspaces:
+
+- [`Data Engineers`](./images/security/group-data-engineers.png): Team responsible for data ingestion, transformation, and Lakehouse management.
+- [`Data Analysts`](./images/security/group-data-analysts.png): Team focused on analytics, semantic modeling, and dashboard development.
+
+---
+
+### 🏢 3. Workspace Role Assignments
+
+Access roles were assigned according to each team's responsibility within their environments:
+
+#### 🧱 **Engineering Workspaces** (`Bronze` & `Silver` Layers)
+
+| Workspace | Assigned Group     | Role        | Screenshot |
+|-----------|--------------------|-------------|------------|
+| [`CRM_Engineering_Dev`](./images/infra/workspace-crm-engineering-dev.png)     | Data Engineers | Contributor | ![Access](./images/security/access-crm-engineering-dev.png) |
+| [`CRM_Engineering_Staging`](./images/infra/workspace-crm-engineering-staging.png) | Data Engineers | Contributor | _same pattern_ |
+| [`CRM_Engineering_Prod`](./images/infra/workspace-crm-engineering-prod.png)   | Data Engineers | Viewer (optional) | _optional read-only for audits_ |
+
+#### 📊 **Analytics Workspaces** (`Gold` Layer)
+
+| Workspace | Assigned Group   | Role        | Screenshot |
+|-----------|------------------|-------------|------------|
+| [`CRM_Analytics_Dev`](./images/infra/workspace-crm-analytics-dev.png)       | Data Analysts | Contributor | ![Access](./images/security/access-crm-analytics-dev.png) |
+| [`CRM_Analytics_Staging`](./images/infra/workspace-crm-analytics-staging.png) | Data Analysts | Contributor | _same pattern_ |
+| [`CRM_Analytics_Prod`](./images/infra/workspace-crm-analytics-prod.png)     | Data Analysts | Viewer      | _read-only for published reports_ |
+
+---
+
+### ✅ Security Best Practices Followed
+
+- **Least Privilege Enforcement**: Each group has only the access level needed to perform its function in a specific environment.
+- **Environment Isolation**: Dev, Staging, and Prod workspaces ensure controlled and testable deployment flows.
+- **Separation of Duties**: Engineers work exclusively on ingestion/transformation; analysts work on reporting.
+- **Centralized Identity & Access Control**: Managed via Azure Entra ID, enabling scalable enterprise governance.
+- **Auditable Workspaces**: Production access is read-only for analysts and optionally restricted for engineers.
+
+📁 Security-related diagrams and screenshots are stored in:  
+[`/images/security`](./images/security)
 
 ---
 
