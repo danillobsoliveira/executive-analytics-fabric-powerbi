@@ -86,19 +86,19 @@ Access roles were assigned according to each team's responsibility within their 
 
 #### 🧱 **Engineering Workspaces** (`Bronze` & `Silver` Layers)
 
-| Workspace | Assigned Group     | Role        | Screenshot |
-|-----------|--------------------|-------------|------------|
-| [`CRM_Engineering_Dev`](./images/infra/workspace-crm-engineering-dev.png)     | Data Engineers | Contributor | ![Access](./images/security/access-crm-engineering-dev.png) |
-| [`CRM_Engineering_Staging`](./images/infra/workspace-crm-engineering-staging.png) | Data Engineers | Contributor | _same pattern_ |
-| [`CRM_Engineering_Prod`](./images/infra/workspace-crm-engineering-prod.png)   | Data Engineers | Viewer (optional) | _optional read-only for audits_ |
+| Workspace | Assigned Group     | Role        |
+|-----------|--------------------|-------------|
+| [`CRM_Engineering_Dev`](./images/infra/workspace-crm-engineering-dev.png)     | Data Engineers | Contributor |
+| [`CRM_Engineering_Staging`](./images/infra/workspace-crm-engineering-staging.png) | Data Engineers | Contributor |
+| [`CRM_Engineering_Prod`](./images/infra/workspace-crm-engineering-prod.png)   | Data Engineers | Viewer (optional) |
 
 #### 📊 **Analytics Workspaces** (`Gold` Layer)
 
-| Workspace | Assigned Group   | Role        | Screenshot |
-|-----------|------------------|-------------|------------|
-| [`CRM_Analytics_Dev`](./images/infra/workspace-crm-analytics-dev.png)       | Data Analysts | Contributor | ![Access](./images/security/access-crm-analytics-dev.png) |
-| [`CRM_Analytics_Staging`](./images/infra/workspace-crm-analytics-staging.png) | Data Analysts | Contributor | _same pattern_ |
-| [`CRM_Analytics_Prod`](./images/infra/workspace-crm-analytics-prod.png)     | Data Analysts | Viewer      | _read-only for published reports_ |
+| Workspace | Assigned Group   | Role        |
+|-----------|------------------|-------------|
+| [`CRM_Analytics_Dev`](./images/infra/workspace-crm-analytics-dev.png)       | Data Analysts | Contributor |
+| [`CRM_Analytics_Staging`](./images/infra/workspace-crm-analytics-staging.png) | Data Analysts | Contributor |
+| [`CRM_Analytics_Prod`](./images/infra/workspace-crm-analytics-prod.png)     | Data Analysts | Viewer      |
 
 ---
 
