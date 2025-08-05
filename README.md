@@ -22,20 +22,20 @@ This project follows best practices for data access governance using **RBAC (Rol
 
 1. **Create Azure Entra users**  
    Two internal users were created to simulate real enterprise roles:
-   - [`dataEngineer@yourdomain.com`](imagens/security/user-data-engineer.png)
-   - `dataAnalyst@yourdomain.com`  ![Data Analyst User](imagens/security/user-data-analyst.png)
+   - [`dataEngineer@yourdomain.com`](images/security/user-data-engineer.png)
+   - [`dataAnalyst@yourdomain.com`](images/security/user-data-analyst.png)
 
 2. **Create Azure Entra security groups**
-   - `Data Engineers`: Group of Data Engineers responsible for designing, building, and maintaining scalable data pipelines, lakehouses, and transformations.
-   - `Data Analysts`: Group of Data Analysts focused on exploring, interpreting, and visualizing business data to generate insights.
+   - [`Data Engineers`](images/security/group-data-engineers.png): Group of Data Engineers responsible for designing, building, and maintaining scalable data pipelines, lakehouses, and transformations.
+   - [`Data Analysts`](images/security/group-data-analysts.png): Group of Data Analysts focused on exploring, interpreting, and visualizing business data to generate insights.
 
 3. **Create dedicated workspaces in Fabric**
-   - `CRM_Engineering_Dev`: Workspace for data engineering tasks – ingestion and transformation of data (Bronze & Silver layers).
-   - `CRM_Analytics_Dev`: Workspace for curated data and reporting – Gold layer, semantic models, and Power BI dashboards.
+   - [`CRM_Engineering_Dev`](images/infra/workspace-crm-engineering-dev.png): Workspace for data engineering tasks – ingestion and transformation of data (Bronze & Silver layers).
+   - [`CRM_Analytics_Dev`](images/infra/workspace-crm-analytics-dev.png): Workspace for curated data and reporting – Gold layer, semantic models, and Power BI dashboards.
 
 4. **Assign roles to groups within workspaces**
-   - In `CRM_Engineering_Dev`, the **Data Engineers** group was added as `Contributors`.
-   - In `CRM_Analytics_Dev`, the **Data Analysts** group was added as `Contributors`.
+   - In [`CRM_Engineering_Dev`](images/security/access-crm-engineering-dev.png), the **Data Engineers** group was added as `Contributors`.
+   - In [`CRM_Analytics_Dev`](images/security/access-crm-analytics-dev.png), the **Data Analysts** group was added as `Contributors`.
 
 ---
 
