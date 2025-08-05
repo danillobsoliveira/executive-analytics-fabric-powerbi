@@ -10,9 +10,32 @@ This project simulates a modern CRM Analytics solution using the Microsoft Fabri
 - Lakehouse (Delta Lake)
 - Power BI
 - PySpark (via Fabric notebooks)
-- Pipelines do Fabric
+- Fabric Pipelines
 - Python (with Faker and requests)
 - SQL (DAX, Spark SQL)
+
+---
+
+## 🔐 Security and Access Management
+
+This project follows best practices for data access governance using **RBAC (Role-Based Access Control)** and the **Principle of Least Privilege (PoLP)** to ensure secure and organized collaboration between different data roles in Microsoft Fabric.
+
+1. **Create Azure Entra users**  
+   Two internal users were created to simulate real enterprise roles:
+   - `dataEngineer@yourdomain.com`
+   - `dataAnalyst@yourdomain.com`
+
+2. **Create Azure Entra security groups**
+   - `Data Engineers`: Group of Data Engineers responsible for designing, building, and maintaining scalable data pipelines, lakehouses, and transformations.
+   - `Data Analysts`: Group of Data Analysts focused on exploring, interpreting, and visualizing business data to generate insights.
+
+3. **Create dedicated workspaces in Fabric**
+   - `CRM_Engineering_Dev`: Workspace for data engineering tasks – ingestion and transformation of data (Bronze & Silver layers).
+   - `CRM_Analytics_Dev`: Workspace for curated data and reporting – Gold layer, semantic models, and Power BI dashboards.
+
+4. **Assign roles to groups within workspaces**
+   - In `CRM_Engineering_Dev`, the **Data Engineers** group was added as `Contributors`.
+   - In `CRM_Analytics_Dev`, the **Data Analysts** group was added as `Contributors`.
 
 ---
 
