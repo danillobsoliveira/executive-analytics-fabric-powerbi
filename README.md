@@ -16,6 +16,48 @@ This project simulates a modern CRM Analytics solution using the Microsoft Fabri
 
 ---
 
+# ⚙️ Project Structure and Environment Strategy
+
+To ensure scalability, maintainability, and adherence to security and CI/CD best practices, this project is organized into two primary environments, each aligned with a specific team responsibility:
+
+- `CRM Engineering`: Responsible for ingestion and transformation (Bronze & Silver layers)
+- `CRM Analytics`: Focused on curated data, semantic modeling, and business reporting (Gold layer)
+
+Each environment is structured into **three isolated workspaces** — Development (`Dev`), Staging (`Staging`), and Production (`Prod`) — to enable safe delivery workflows and strict access control.
+
+---
+
+## 🛠️ Environment Breakdown
+
+| Workspace Name                                                                 | Purpose                                                                 |
+|--------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| [`CRM_Engineering_Dev`](./images/infra/workspace-crm-engineering-dev.png)     | Development of pipelines, notebooks, and ETL logic for Bronze/Silver.   |
+| [`CRM_Engineering_Staging`](./images/infra/workspace-crm-engineering-staging.png) | Testing and validation of stable pipelines before production release.   |
+| [`CRM_Engineering_Prod`](./images/infra/workspace-crm-engineering-prod.png)   | Production-grade ingestion and transformation with monitoring enabled.  |
+| [`CRM_Analytics_Dev`](./images/infra/workspace-crm-analytics-dev.png)         | Development of semantic models and Power BI dashboards (Gold layer).    |
+| [`CRM_Analytics_Staging`](./images/infra/workspace-crm-analytics-staging.png) | QA and stakeholder review of reports and models before publication.     |
+| [`CRM_Analytics_Prod`](./images/infra/workspace-crm-analytics-prod.png)       | Live environment for business reporting and analytics delivery.         |
+
+---
+
+## 🔐 Why This Structure?
+
+This multi-workspace strategy aligns with enterprise best practices in **data platform governance**:
+
+- ✅ **Security by Design**: Access is isolated by role and stage. Engineers have full access to Bronze/Silver; analysts only to Gold (read-only in production).
+- ✅ **Separation of Concerns**: Engineering and analytics teams operate in isolated environments to avoid conflict and ensure autonomy.
+- ✅ **CI/CD Readiness**: Each workspace is linked to a dedicated Git branch, enabling automated deployment pipelines per stage (e.g., `Dev`, `Staging`, `Prod`).
+- ✅ **Safe Experimentation**: Development environments allow rapid prototyping without affecting production data or dashboards.
+- ✅ **Audit & Compliance**: Production workspaces are monitored, versioned, and subject to strict controls for traceability.
+
+---
+
+📁 Workspace and access configuration images are stored in:
+- [`/images/infra`](./images/infra) – Workspace setup and Git integration
+- [`/images/security`](./images/security) – Role-based access control and group definitions
+
+---
+
 ## 🔐 Security and Access Management
 
 This project follows best practices for data access governance using **RBAC (Role-Based Access Control)** and the **Principle of Least Privilege (PoLP)** to ensure secure and organized collaboration between different data roles in Microsoft Fabric.
