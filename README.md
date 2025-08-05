@@ -22,7 +22,7 @@ This project follows best practices for data access governance using **RBAC (Rol
 
 1. **Create Azure Entra users**  
    Two internal users were created to simulate real enterprise roles:
-   - `dataEngineer@yourdomain.com` ![Data Engineer User](imagens/security/user-data-engineer.png)
+   - [`dataEngineer@yourdomain.com`](imagens/security/user-data-engineer.png)
    - `dataAnalyst@yourdomain.com`  ![Data Analyst User](imagens/security/user-data-analyst.png)
 
 2. **Create Azure Entra security groups**
