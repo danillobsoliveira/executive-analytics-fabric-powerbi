@@ -29,14 +29,14 @@ Each environment is structured into **three isolated workspaces** — Developmen
 
 ## 🛠️ Environment Breakdown
 
-| Workspace Name                                                                 | Purpose                                                                 |
-|--------------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| [`CRM_Engineering_Dev`](./images/infra/workspace-crm-engineering-dev.png)     | Development of pipelines, notebooks, and ETL logic for Bronze/Silver.   |
-| [`CRM_Engineering_Staging`](./images/infra/workspace-crm-engineering-staging.png) | Testing and validation of stable pipelines before production release.   |
-| [`CRM_Engineering_Prod`](./images/infra/workspace-crm-engineering-prod.png)   | Production-grade ingestion and transformation with monitoring enabled.  |
-| [`CRM_Analytics_Dev`](./images/infra/workspace-crm-analytics-dev.png)         | Development of semantic models and Power BI dashboards (Gold layer).    |
-| [`CRM_Analytics_Staging`](./images/infra/workspace-crm-analytics-staging.png) | QA and stakeholder review of reports and models before publication.     |
-| [`CRM_Analytics_Prod`](./images/infra/workspace-crm-analytics-prod.png)       | Live environment for business reporting and analytics delivery.         |
+| Workspace Name                                                                 | Purpose                                                                 | Git Branch               | Folder Path                        |
+|--------------------------------------------------------------------------------|-------------------------------------------------------------------------|---------------------------|-------------------------------------|
+| [`CRM_Engineering_Dev`](./images/infra/workspace-crm-engineering-dev.png)     | Development of pipelines, notebooks, and ETL logic for Bronze/Silver.   | `crm_engineering_dev`     | `/workspaces/crm_engineering_dev`  |
+| [`CRM_Engineering_Staging`](./images/infra/workspace-crm-engineering-staging.png) | Testing and validation of stable pipelines before production release.   | `crm_engineering_staging` | `/workspaces/crm_engineering_staging` |
+| [`CRM_Engineering_Prod`](./images/infra/workspace-crm-engineering-prod.png)   | Production-grade ingestion and transformation with monitoring enabled.  | `crm_engineering_prod`    | `/workspaces/crm_engineering_prod` |
+| [`CRM_Analytics_Dev`](./images/infra/workspace-crm-analytics-dev.png)         | Development of semantic models and Power BI dashboards (Gold layer).    | `crm_analytics_dev`       | `/workspaces/crm_analytics_dev`    |
+| [`CRM_Analytics_Staging`](./images/infra/workspace-crm-analytics-staging.png) | QA and stakeholder review of reports and models before publication.     | `crm_analytics_staging`   | `/workspaces/crm_analytics_staging`|
+| [`CRM_Analytics_Prod`](./images/infra/workspace-crm-analytics-prod.png)       | Live environment for business reporting and analytics delivery.         | `crm_analytics_prod`      | `/workspaces/crm_analytics_prod`   |
 
 ---
 
