@@ -1,6 +1,7 @@
 # 📊 CRM Analytics with Microsoft Fabric
 
 This project simulates a modern CRM Analytics solution using the Microsoft Fabric platform. It involves generating synthetic data as well as integrating real-world data from a public API, storing it in a Lakehouse using the Medallion architecture, processing and transforming it with PySpark, leveraging Delta Lake versioning, automating pipelines, and building interactive dashboards with Power BI.
+<br>
 
 ---
 
@@ -13,6 +14,7 @@ This project simulates a modern CRM Analytics solution using the Microsoft Fabri
 - Fabric Pipelines
 - Python (with Faker and requests)
 - SQL (DAX, Spark SQL)
+<br>
 
 ---
 
@@ -24,6 +26,7 @@ To ensure scalability, maintainability, and adherence to security and CI/CD best
 - `CRM Analytics`: Focused on curated data, semantic modeling, and business reporting (Gold layer)
 
 Each environment is structured into **three isolated workspaces** — Development (`Dev`), Staging (`Staging`), and Production (`Prod`) — to enable safe delivery workflows and strict access control.
+<br>
 
 ---
 
@@ -37,6 +40,7 @@ Each environment is structured into **three isolated workspaces** — Developmen
 | [`CRM_Analytics_Dev`](./images/infra/workspace-crm-analytics-dev.png)         | Development of semantic models and Power BI dashboards (Gold layer).    | `crm_analytics_dev`       | `/workspaces/crm_analytics_dev`    |
 | [`CRM_Analytics_Staging`](./images/infra/workspace-crm-analytics-staging.png) | QA and stakeholder review of reports and models before publication.     | `crm_analytics_staging`   | `/workspaces/crm_analytics_staging`|
 | [`CRM_Analytics_Prod`](./images/infra/workspace-crm-analytics-prod.png)       | Live environment for business reporting and analytics delivery.         | `crm_analytics_prod`      | `/workspaces/crm_analytics_prod`   |
+<br>
 
 ---
 
@@ -49,12 +53,14 @@ This multi-workspace strategy aligns with enterprise best practices in **data pl
 - ✅ **CI/CD Readiness**: Each workspace is linked to a dedicated Git branch, enabling automated deployment pipelines per stage (e.g., `Dev`, `Staging`, `Prod`).
 - ✅ **Safe Experimentation**: Development environments allow rapid prototyping without affecting production data or dashboards.
 - ✅ **Audit & Compliance**: Production workspaces are monitored, versioned, and subject to strict controls for traceability.
+<br>
 
 ---
 
 📁 Workspace and access configuration images are stored in:
 - [`/images/infra`](./images/infra) – Workspace setup and Git integration
 - [`/images/security`](./images/security) – Role-based access control and group definitions
+<br>
 
 ---
 
@@ -68,6 +74,7 @@ Two simulated enterprise users were created:
 
 - [`dataEngineer@yourdomain.com`](./images/security/user-data-engineer.png)
 - [`dataAnalyst@yourdomain.com`](./images/security/user-data-analyst.png)
+<br>
 
 ---
 
@@ -77,6 +84,7 @@ Security groups were created to simplify access management across workspaces:
 
 - [`Data Engineers`](./images/security/group-data-engineers.png): Team responsible for data ingestion, transformation, and Lakehouse management.
 - [`Data Analysts`](./images/security/group-data-analysts.png): Team focused on analytics, semantic modeling, and dashboard development.
+<br>
 
 ---
 
@@ -99,6 +107,7 @@ Access roles were assigned according to each team's responsibility within their 
 | [`CRM_Analytics_Dev`](./images/infra/workspace-crm-analytics-dev.png)       | Data Analysts | Contributor |
 | [`CRM_Analytics_Staging`](./images/infra/workspace-crm-analytics-staging.png) | Data Analysts | Contributor |
 | [`CRM_Analytics_Prod`](./images/infra/workspace-crm-analytics-prod.png)     | Data Analysts | Viewer      |
+<br>
 
 ---
 
@@ -112,6 +121,7 @@ Access roles were assigned according to each team's responsibility within their 
 
 📁 Security-related diagrams and screenshots are stored in:  
 [`/images/security`](./images/security)
+<br>
 
 ---
 
@@ -128,6 +138,7 @@ This project follows the Medallion data architecture pattern:
 | `bronze_products`    | Faker                      | Products with categories and pricing       |
 | `bronze_sales`      | Faker                      | Simulated sales history         |
 | `bronze_ibge_states`| API IBGE                   | Official list of Brazilian states           |
+<br>
 
 ---
 
@@ -141,6 +152,7 @@ This project follows the Medallion data architecture pattern:
 | `dim_time`          | Time dimension (2 years range)         |
 | `dim_geographic`       | Standardized geographic dimension    |
 | `fact_sales`        | 	Fact table with keys and metrics         |
+<br>
 
 ---
 
@@ -152,6 +164,7 @@ This project follows the Medallion data architecture pattern:
 | `total_sales_state`   | Total sales by state          |
 | `top_customers`        | Top customers by volume      |
 | `top_products`           | Best-selling products              |
+<br>
 
 ---
 
@@ -161,6 +174,7 @@ This project follows the Medallion data architecture pattern:
 - **Data masking for sensitive fields**, such as customer emails
 - **Layer-based access separation**: full access to Bronze/Silver, read-only access to Gold
 - Ready for **auditing and monitoring** via Fabric or Azure Purview
+<br>
 
 ---
 
@@ -198,6 +212,7 @@ All ETL processes are automated using Microsoft Fabric Pipelines.
 | `api_collection_ibge`           | Real-time data collection from IBGE API              |
 
 Each pipeline can be scheduled (e.g., daily) or triggered manually.
+<br>
 
 ---
 
@@ -211,6 +226,7 @@ Each pipeline can be scheduled (e.g., daily) or triggered manually.
 > Dashboards were built directly within Power BI in Fabric, using native Lakehouse connections.
 
 📷 Dashboard screenshots are available in /imagens/dashboard.png.
+<br>
 
 ---
 
@@ -221,6 +237,7 @@ Each pipeline can be scheduled (e.g., daily) or triggered manually.
 - Reusable notebook modules
 - Clear separation of responsibilities across layers
 - Incremental ETL with future timestamp control (optional)
+<br>
 
 ---
 
@@ -243,6 +260,8 @@ crm-analytics-fabric/
 │   └── dashboard.png
 ├── README.md
 ```
+<br>
+
 ---
 
 ## 🧠 Demonstrated Skills
@@ -255,6 +274,7 @@ crm-analytics-fabric/
 - ✔️ Automation with Fabric Pipelines
 - ✔️ Data visualization with Power BI
 - ✔️ Security and performance best practices
+<br>
 
 ---
 
