@@ -16,7 +16,9 @@ This project presents a modern and secure CRM Analytics architecture using Micro
 - Python (with Faker and requests)
 - SQL (DAX, Spark SQL)
 
-![Tech Stack](./images/infra/tech_stack_badges.png)
+📁 tech_stack_badges are stored in:  
+[`/images/tech_stack_badges.png`](./images/tech_stack_badges.png)
+<br>
 
 ---
 
@@ -250,6 +252,9 @@ Each pipeline can be scheduled (e.g., daily) or triggered manually.
 > Dashboards were built directly within Power BI in Fabric, using native Lakehouse connections.
 
 📷 Dashboard screenshots are available in /imagens/dashboard.png.
+[`/images/tech_stack_badges.png`](./images/dashboard.png)
+<br>
+
 <br>
 
 ---
