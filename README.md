@@ -8,15 +8,15 @@ This project presents a modern and secure CRM Analytics architecture using Micro
 
 ## 🚀 Technologies Used
 
-- [Microsoft Fabric](https://www.microsoft.com/en-us/microsoft-fabric)
-- Lakehouse (Delta Lake)
-- Power BI
-- PySpark (via Fabric notebooks)
-- Fabric Pipelines
-- Python (with Faker and requests)
-- SQL (DAX, Spark SQL)
+- **[Microsoft Fabric](https://www.microsoft.com/en-us/microsoft-fabric)** – Integrated platform for data, analytics, and AI.  
+- **Lakehouse (Delta Lake)** – Unified storage with data versioning and optimizations.  
+- **Power BI** – Data visualization and dashboarding tool.  
+- **PySpark** (via Fabric notebooks) – Distributed data processing using Python.  
+- **Fabric Pipelines** – ETL orchestration and automation.  
+- **Python** (with Faker and requests libraries) – Synthetic data generation and API calls.  
+- **SQL** (DAX for Power BI and Spark SQL for data transformations) – Query and data manipulation languages.
 
-📁 tech_stack_badges are stored in:  
+📁 Technology stack badges are stored in:  
 [`/images/tech_stack_badges.png`](./images/tech_stack_badges.png)
 <br>
 
