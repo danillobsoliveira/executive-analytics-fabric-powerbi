@@ -1,7 +1,8 @@
 # 📊 CRM Analytics with Microsoft Fabric
 
-This project simulates a modern CRM Analytics solution using the Microsoft Fabric platform. It involves generating synthetic data as well as integrating real-world data from a public API, storing it in a Lakehouse using the Medallion architecture, processing and transforming it with PySpark, leveraging Delta Lake versioning, automating pipelines, and building interactive dashboards with Power BI.
-<br>
+This project presents a modern and secure CRM Analytics architecture using Microsoft Fabric. All data is stored in OneLake, allowing seamless linking between engineering and analytics environments without data duplication. The structure is designed with a strong focus on governance, applying RBAC and the Principle of Least Privilege. Environments are isolated and ready for CI/CD practices. Data pipelines are automated with PySpark, from ingestion to delivery. Power BI reports access the data directly, with high performance and no duplication.
+
+> ✨ [View Project Demo (Video)](https://www.loom.com/share/your-demo-link) *(optional)*
 
 ---
 
@@ -14,7 +15,8 @@ This project simulates a modern CRM Analytics solution using the Microsoft Fabri
 - Fabric Pipelines
 - Python (with Faker and requests)
 - SQL (DAX, Spark SQL)
-<br>
+
+![Tech Stack](./images/infra/tech_stack_badges.png)
 
 ---
 
@@ -57,9 +59,62 @@ This multi-workspace strategy aligns with enterprise best practices in **data pl
 
 ---
 
-📁 Workspace and access configuration images are stored in:
-- [`/images/infra`](./images/infra) – Workspace setup and Git integration
-- [`/images/security`](./images/security) – Role-based access control and group definitions
+## 📁 Project Structure
+
+```plaintext
+crm-analytics-fabric/
+│
+├── README.md
+│
+├── modeling/
+│   └── dimensional_model.drawio
+│
+├── images/
+│   └── dashboard.png
+│
+├── workspaces/
+│   ├── crm_engineering_dev
+│   ├──   ├── crm_engineering.Environment
+│   ├──   ├── crm_engineering.Lakehouse
+│   ├──   ├── crm_engineering.Notebook
+│   ├──   ├──   ├── generate_data.ipynb
+│   ├──   ├──   ├── bronze_to_silver.ipynb
+│   ├──   ├──   ├── silver_to_gold.ipynb
+│   ├──   ├── crm_engineering.Pipeline
+│   ├──   ├──   ├── etl_crm-analytics.json
+│
+│   ├── crm_engineering_staging
+│   ├──   ├── crm_engineering.Environment
+│   ├──   ├── crm_engineering.Lakehouse
+│   ├──   ├── crm_engineering.Notebook
+│   ├──   ├──   ├── generate_data.ipynb
+│   ├──   ├──   ├── bronze_to_silver.ipynb
+│   ├──   ├──   ├── silver_to_gold.ipynb
+│   ├──   ├── crm_engineering.Pipeline
+│   ├──   ├──   ├── etl_crm-analytics.json
+│
+│   ├── crm_engineering_prod
+│   ├──   ├── crm_engineering.Environment
+│   ├──   ├── crm_engineering.Lakehouse
+│   ├──   ├── crm_engineering.Notebook
+│   ├──   ├──   ├── generate_data.ipynb
+│   ├──   ├──   ├── bronze_to_silver.ipynb
+│   ├──   ├──   ├── silver_to_gold.ipynb
+│   ├──   ├── crm_engineering.Pipeline
+│   ├──   ├──   ├── etl_crm-analytics.json
+│
+│   ├── crm_analytics_dev
+│   │   ├── crm_analytics.DataWarehouse
+│   │   ├── crm_analytics.PowerBIReports
+│
+│   ├── crm_analytics_staging
+│   │   ├── crm_analytics.DataWarehouse
+│   │   ├── crm_analytics.PowerBIReports
+│
+│   ├── crm_analytics_prod
+│   │   ├── crm_analytics.DataWarehouse
+│   │   ├── crm_analytics.PowerBIReports
+```
 <br>
 
 ---
@@ -168,37 +223,6 @@ This project follows the Medallion data architecture pattern:
 
 ---
 
-## 🔐 Security
-
-- **Workspace-level access control** in Microsoft Fabric
-- **Data masking for sensitive fields**, such as customer emails
-- **Layer-based access separation**: full access to Bronze/Silver, read-only access to Gold
-- Ready for **auditing and monitoring** via Fabric or Azure Purview
-<br>
-
----
-
-## 🕒 Data Versioning with Delta Time Travel
-
-This project uses Delta Lake as the storage format, allowing automatic versioning of all tables. This enables:
-
-- Restore previous versions of any table
-- Audit transformations and load history
-- Re-run analyses based on historical versions
-
-Example usage in a notebook:
-
-```sql
--- Query a previous version of the sales fact table (SQL)
-SELECT * FROM silver.fato_vendas VERSION AS OF 3
-```
-```python
-# Query a previous version using PySpark
-df_v2 = spark.read.format("delta") \
-    .option("versionAsOf", 3) \
-    .load("Tables/silver/fact_sales")
-```
-
 ## ⚙️ Pipeline Automation
 
 All ETL processes are automated using Microsoft Fabric Pipelines.
@@ -241,26 +265,26 @@ Each pipeline can be scheduled (e.g., daily) or triggered manually.
 
 ---
 
-## 📁 Project Structure
+## ⚙️ How to Run This Project
 
-```plaintext
-crm-analytics-fabric/
-├── notebooks/
-│   ├── geracao_dados.ipynb
-│   ├── coleta_api_ibge.ipynb
-│   ├── bronze_to_silver.ipynb
-│   └── silver_to_gold.ipynb
-├── pipelines/
-│   ├── etl_bronze_to_silver.json
-│   ├── etl_silver_to_gold.json
-│   └── api_coleta_ibge.json
-├── modelagem/
-│   └── modelo_dimensional.drawio
-├── imagens/
-│   └── dashboard.png
-├── README.md
+To explore or extend this project:
+
+1. **Clone the repository**:
+```bash
+git clone https://github.com/danillobsoliveira/executive-analytics-fabric-powerbi.git
 ```
-<br>
+
+2. **Open Microsoft Fabric** and import the notebooks from `/notebooks`
+
+3. **Set up Lakehouse & Pipelines**:
+   - Recreate pipelines in Fabric using JSON files under `/pipelines`
+   - Create Lakehouse tables (Bronze layer) by running `geracao_dados.ipynb`
+
+4. **Follow Medallion ETL flow**:
+   - `bronze_to_silver.ipynb`
+   - `silver_to_gold.ipynb`
+
+5. **Open Power BI** in Fabric and link to Gold tables for reports.
 
 ---
 
@@ -275,6 +299,18 @@ crm-analytics-fabric/
 - ✔️ Data visualization with Power BI
 - ✔️ Security and performance best practices
 <br>
+
+---
+
+## 🗓️ License
+
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
+
+---
+
+## 📣 Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request if you'd like to collaborate.
 
 ---
 
