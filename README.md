@@ -22,6 +22,12 @@ This project presents a modern and secure CRM Analytics architecture using Micro
 
 ---
 
+## ⚡ Quick Start
+
+Follow these steps to deploy and explore the CRM Analytics solution on Microsoft Fabric:
+
+---
+
 # ⚙️ Project Structure and Environment Strategy
 
 To ensure scalability, maintainability, and adherence to security and CI/CD best practices, this project is organized into two primary environments, each aligned with a specific team responsibility:
@@ -75,7 +81,7 @@ crm-analytics-fabric/
 │   └── dashboard.png
 │
 ├── workspaces/
-│   ├── crm_engineering_dev
+│   ├── crm_engineering
 │   ├──   ├── crm_engineering.Environment
 │   ├──   ├── crm_engineering.Lakehouse
 │   ├──   ├── crm_engineering.Notebook
@@ -85,37 +91,10 @@ crm-analytics-fabric/
 │   ├──   ├── crm_engineering.Pipeline
 │   ├──   ├──   ├── etl_crm-analytics.json
 │
-│   ├── crm_engineering_staging
-│   ├──   ├── crm_engineering.Environment
-│   ├──   ├── crm_engineering.Lakehouse
-│   ├──   ├── crm_engineering.Notebook
-│   ├──   ├──   ├── generate_data.ipynb
-│   ├──   ├──   ├── bronze_to_silver.ipynb
-│   ├──   ├──   ├── silver_to_gold.ipynb
-│   ├──   ├── crm_engineering.Pipeline
-│   ├──   ├──   ├── etl_crm-analytics.json
-│
-│   ├── crm_engineering_prod
-│   ├──   ├── crm_engineering.Environment
-│   ├──   ├── crm_engineering.Lakehouse
-│   ├──   ├── crm_engineering.Notebook
-│   ├──   ├──   ├── generate_data.ipynb
-│   ├──   ├──   ├── bronze_to_silver.ipynb
-│   ├──   ├──   ├── silver_to_gold.ipynb
-│   ├──   ├── crm_engineering.Pipeline
-│   ├──   ├──   ├── etl_crm-analytics.json
-│
-│   ├── crm_analytics_dev
+│   ├── crm_analytics
 │   │   ├── crm_analytics.DataWarehouse
 │   │   ├── crm_analytics.PowerBIReports
 │
-│   ├── crm_analytics_staging
-│   │   ├── crm_analytics.DataWarehouse
-│   │   ├── crm_analytics.PowerBIReports
-│
-│   ├── crm_analytics_prod
-│   │   ├── crm_analytics.DataWarehouse
-│   │   ├── crm_analytics.PowerBIReports
 ```
 <br>
 
@@ -267,29 +246,6 @@ Each pipeline can be scheduled (e.g., daily) or triggered manually.
 - Clear separation of responsibilities across layers
 - Incremental ETL with future timestamp control (optional)
 <br>
-
----
-
-## ⚙️ How to Run This Project
-
-To explore or extend this project:
-
-1. **Clone the repository**:
-```bash
-git clone https://github.com/danillobsoliveira/executive-analytics-fabric-powerbi.git
-```
-
-2. **Open Microsoft Fabric** and import the notebooks from `/notebooks`
-
-3. **Set up Lakehouse & Pipelines**:
-   - Recreate pipelines in Fabric using JSON files under `/pipelines`
-   - Create Lakehouse tables (Bronze layer) by running `geracao_dados.ipynb`
-
-4. **Follow Medallion ETL flow**:
-   - `bronze_to_silver.ipynb`
-   - `silver_to_gold.ipynb`
-
-5. **Open Power BI** in Fabric and link to Gold tables for reports.
 
 ---
 
