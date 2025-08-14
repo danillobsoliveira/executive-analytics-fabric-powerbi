@@ -26,7 +26,7 @@ In this project, dedicated workspaces are created in Microsoft Fabric to support
 3. Analysts access the Gold data from the Engineering Workspace via **Lakehouse Shortcuts**, enabling safe and governed access without duplicating data.
 4. Access the **workspace settings** and confirm that the **Data Model Settings** preview feature is turned on. This setting allows you to define **relationships between lakehouse tables** and build a Power BI semantic model.
 
-![Architecture Diagram](./images/crm-analytics-reports-data-model-settings.png)   
+![Data Model Settings](./images/crm-analytics-reports-data-model-settings.png)   
 <br>
 
 ## Create a Lakehouse and Upload Data to the Bronze Layer
@@ -42,11 +42,12 @@ products.csv
 sales.csv
 states.csv
 ```
-4. In the lakehouse **Explorer pane**, select the **… menu** for the **Files** folder and create a new subfolder named **bronze**.
-5. In the **… menu** for the **bronze folder**, select **Upload → Upload files**, and upload all CSV files from the data-sources/ directory. You can use the Shift key to select multiple files at once.
-6. After the files have been uploaded, select the **bronze folder** and verify that all files are present.
+4. In the lakehouse **Explorer pane**, select the **… menu** for the **Files** folder and create a new subfolder named **Bronze**.
+5. In the **… menu** for the **bronze folder**, select **Upload → Upload files**, and upload all CSV files from the [data-sources/](./data-sources/) directory. You can use the Shift key to select multiple files at once.
+6. After the files have been uploaded, select the **Bronze folder** and verify that all files are present.
 
 > **Note:** The Bronze layer stores raw, untransformed CRM data. This is the first step in the Medallion Architecture, preparing the data for cleaning and transformation in the Silver layer.
 
-
+![lh_crm_analytics](./images/lh_crm_analytics.png)   
+<br>
 
