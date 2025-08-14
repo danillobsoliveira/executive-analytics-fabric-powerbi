@@ -26,3 +26,5 @@ In this project, dedicated workspaces are created in Microsoft Fabric to support
 3. Analysts access the Gold data from the Engineering Workspace via **Lakehouse Shortcuts**, enabling safe and governed access without duplicating data.
 4. Access the **workspace settings** and confirm that the **Data Model Settings** preview feature is turned on. This setting allows you to define **relationships between lakehouse tables** and build a Power BI semantic model.
 
+![Architecture Diagram](./images/crm-analytics-reports-data-model-settings.png)   
+
