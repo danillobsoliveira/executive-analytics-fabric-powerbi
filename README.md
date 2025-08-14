@@ -2,8 +2,6 @@
 
 A modern and secure **CRM Analytics architecture** using Microsoft Fabric. All data is stored in OneLake, enabling seamless integration between engineering and analytics environments without data duplication. The project enforces governance best practices, applying RBAC and the Principle of Least Privilege, with isolated environments ready for CI/CD. Data pipelines are fully automated with PySpark, from ingestion to delivery, and Power BI reports connect directly to the Lakehouse for high performance.
 
-> 🎥 [View Demo (Video)](https://link-to-demo) *(optional)*  
-
 ---
 
 ## 🚀 Architecture
@@ -30,16 +28,26 @@ A modern and secure **CRM Analytics architecture** using Microsoft Fabric. All d
 
 ## ⚙️ Pipeline & Modeling
 
-**Pipelines:**
-- `[pipeline_name]` → Short description of what it does  
-- `[pipeline_name]` → Short description  
+**Pipeline Overview:**
+![Fabric Pipeline](./images/pipeline.png)
 
-**Data Model:**
-```plaintext
-Layer1: table1, table2, table3
-Layer2: table1, table2, table3
-Layer3: table1, table2, table3
-```
+This architecture follows the **Bronze → Silver → Gold** data flow:  
+1. **Ingestion (Bronze)** – Raw CSV/API data loaded directly into OneLake without transformations. [View Notebook](./notebooks/01_ingestion.ipynb)  
+2. **Transformation (Silver)** – Data cleaning, type standardization, and dimensional modeling. [View Notebook](./notebooks/02_transformation.ipynb)  
+3. **Aggregation (Gold)** – Business-ready datasets prepared for dashboards. [View Notebook](./notebooks/03_gold_layer.ipynb)  
+
+---
+
+**Dimensional Model:**
+![Dimensional Model](./images/dimensional_model.png)
+
+- **Fact Tables:** `fact_sales`, `fact_interactions`  
+- **Dimension Tables:** `dim_customers`, `dim_products`, `dim_dates`, `dim_sales_reps`  
+
+---
+
+**Summary:**  
+Data flows from raw ingestion in **Bronze** to curated analytical models in **Gold**, following best practices for data governance, performance optimization, and direct Power BI connectivity.
 
 ---
 
