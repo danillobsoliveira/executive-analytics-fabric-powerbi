@@ -1,277 +1,86 @@
 # 📊 CRM Analytics with Microsoft Fabric
 
-This project presents a modern and secure CRM Analytics architecture using Microsoft Fabric. All data is stored in OneLake, allowing seamless linking between engineering and analytics environments without data duplication. The structure is designed with a strong focus on governance, applying RBAC and the Principle of Least Privilege. Environments are isolated and ready for CI/CD practices. Data pipelines are automated with PySpark, from ingestion to delivery. Power BI reports access the data directly, with high performance and no duplication.
+A modern and secure **CRM Analytics architecture** using Microsoft Fabric. All data is stored in OneLake, enabling seamless integration between engineering and analytics environments without data duplication. The project enforces governance best practices, applying RBAC and the Principle of Least Privilege, with isolated environments ready for CI/CD. Data pipelines are fully automated with PySpark, from ingestion to delivery, and Power BI reports connect directly to the Lakehouse for high performance.
 
-> ✨ [View Project Demo (Video)](https://www.loom.com/share/your-demo-link) *(optional)*
-
----
-
-## 🚀 Technologies Used
-
-- **[Microsoft Fabric](https://www.microsoft.com/en-us/microsoft-fabric)** – Integrated platform for data, analytics, and AI.  
-- **Lakehouse (Delta Lake)** – Unified storage with data versioning and optimizations.  
-- **Power BI** – Data visualization and dashboarding tool.  
-- **PySpark** (via Fabric notebooks) – Distributed data processing using Python.  
-- **Fabric Pipelines** – ETL orchestration and automation.  
-- **Python** (with Faker and requests libraries) – Synthetic data generation and API calls.  
-- **SQL** (DAX for Power BI and Spark SQL for data transformations) – Query and data manipulation languages.
-
-📁 Technology stack badges are stored in:  
-[`/images/tech_stack_badges.png`](./images/tech_stack_badges.png)
-<br>
+> 🎥 [View Demo (Video)](https://link-to-demo) *(optional)*  
 
 ---
 
-## ⚡ Quick Start
+## 🚀 Architecture
+![Architecture Diagram](./images/executive-analytics-fabric-powerbi.drawio.png)   
 
-Follow these steps to deploy and explore the CRM Analytics solution on Microsoft Fabric:
-
----
-
-# ⚙️ Project Structure and Environment Strategy
-
-To ensure scalability, maintainability, and adherence to security and CI/CD best practices, this project is organized into two primary environments, each aligned with a specific team responsibility:
-
-- `CRM Engineering`: Responsible for ingestion and transformation (Bronze & Silver layers)
-- `CRM Analytics`: Focused on curated data, semantic modeling, and business reporting (Gold layer)
-
-Each environment is structured into **three isolated workspaces** — Development (`Dev`), Staging (`Staging`), and Production (`Prod`) — to enable safe delivery workflows and strict access control.
-<br>
+**Flow:**
+1. **Source Landing** → Raw CSV files stored in OneLake  
+2. **Bronze Layer** → Raw data in Delta Lake format (no transformations)  
+3. **Silver Layer** → Cleaned and standardized data with dimensions and facts  
+4. **Gold Layer** → Business-ready datasets for dashboards and analytics
 
 ---
 
-## 🛠️ Environment Breakdown
-
-| Workspace Name                                                                 | Purpose                                                                 | Git Branch               | Folder Path                        |
-|--------------------------------------------------------------------------------|-------------------------------------------------------------------------|---------------------------|-------------------------------------|
-| [`CRM_Engineering_Dev`](./images/infra/workspace-crm-engineering-dev.png)     | Development of pipelines, notebooks, and ETL logic for Bronze/Silver.   | `crm_engineering_dev`     | `/workspaces/crm_engineering_dev`  |
-| [`CRM_Engineering_Staging`](./images/infra/workspace-crm-engineering-staging.png) | Testing and validation of stable pipelines before production release.   | `crm_engineering_staging` | `/workspaces/crm_engineering_staging` |
-| [`CRM_Engineering_Prod`](./images/infra/workspace-crm-engineering-prod.png)   | Production-grade ingestion and transformation with monitoring enabled.  | `crm_engineering_prod`    | `/workspaces/crm_engineering_prod` |
-| [`CRM_Analytics_Dev`](./images/infra/workspace-crm-analytics-dev.png)         | Development of semantic models and Power BI dashboards (Gold layer).    | `crm_analytics_dev`       | `/workspaces/crm_analytics_dev`    |
-| [`CRM_Analytics_Staging`](./images/infra/workspace-crm-analytics-staging.png) | QA and stakeholder review of reports and models before publication.     | `crm_analytics_staging`   | `/workspaces/crm_analytics_staging`|
-| [`CRM_Analytics_Prod`](./images/infra/workspace-crm-analytics-prod.png)       | Live environment for business reporting and analytics delivery.         | `crm_analytics_prod`      | `/workspaces/crm_analytics_prod`   |
-<br>
-
+## 🛠 Technologies
+- **Microsoft Fabric** – Integrated platform for data, analytics, and AI  
+- **Lakehouse (Delta Lake)** – Unified storage with data versioning and optimizations  
+- **PySpark** – Distributed data processing and transformations  
+- **Fabric Pipelines** – ETL orchestration and automation  
+- **Power BI** – Data visualization and dashboarding  
+- **Python (Faker, requests)** – Synthetic data generation and API ingestion  
+- **Spark SQL / DAX** – Querying and modeling
+  
 ---
 
-## 🔐 Why This Structure?
+## ⚙️ Pipeline & Modeling
 
-This multi-workspace strategy aligns with enterprise best practices in **data platform governance**:
+**Pipelines:**
+- `[pipeline_name]` → Short description of what it does  
+- `[pipeline_name]` → Short description  
 
-- ✅ **Security by Design**: Access is isolated by role and stage. Engineers have full access to Bronze/Silver; analysts only to Gold (read-only in production).
-- ✅ **Separation of Concerns**: Engineering and analytics teams operate in isolated environments to avoid conflict and ensure autonomy.
-- ✅ **CI/CD Readiness**: Each workspace is linked to a dedicated Git branch, enabling automated deployment pipelines per stage (e.g., `Dev`, `Staging`, `Prod`).
-- ✅ **Safe Experimentation**: Development environments allow rapid prototyping without affecting production data or dashboards.
-- ✅ **Audit & Compliance**: Production workspaces are monitored, versioned, and subject to strict controls for traceability.
-<br>
-
----
-
-## 📁 Project Structure
-
+**Data Model:**
 ```plaintext
-crm-analytics-fabric/
-│
-├── README.md
-│
-├── modeling/
-│   └── dimensional_model.drawio
-│
-├── images/
-│   └── dashboard.png
-│
-├── workspaces/
-│   ├── crm_engineering
-│   ├──   ├── crm_engineering.Environment
-│   ├──   ├── crm_engineering.Lakehouse
-│   ├──   ├── crm_engineering.Notebook
-│   ├──   ├──   ├── generate_data.ipynb
-│   ├──   ├──   ├── bronze_to_silver.ipynb
-│   ├──   ├──   ├── silver_to_gold.ipynb
-│   ├──   ├── crm_engineering.Pipeline
-│   ├──   ├──   ├── etl_crm-analytics.json
-│
-│   ├── crm_analytics
-│   │   ├── crm_analytics.DataWarehouse
-│   │   ├── crm_analytics.PowerBIReports
-│
+Layer1: table1, table2, table3
+Layer2: table1, table2, table3
+Layer3: table1, table2, table3
 ```
-<br>
 
 ---
 
-## 🔐 Security and Access Management
+## 📊 Results / Dashboards
 
-This project adopts **RBAC (Role-Based Access Control)** and the **Principle of Least Privilege (PoLP)** to manage access and responsibilities across environments, ensuring secure and traceable collaboration across the data lifecycle.
+| Insight | Description |
+|---------|-------------|
+| 📌 **Insight 1** | *[Explain the key finding, trend, or metric discovered. Be concise.]* |
+| 📌 **Insight 2** | *[Highlight another significant observation from the analysis.]* |
+| 📌 **Insight 3** | *[Present a critical business or technical takeaway.]* |
 
-### 👥 1. Azure Entra Users
-
-Two simulated enterprise users were created:
-
-- [`dataEngineer@yourdomain.com`](./images/security/user-data-engineer.png)
-- [`dataAnalyst@yourdomain.com`](./images/security/user-data-analyst.png)
-<br>
-
----
-
-### 👥 2. Azure Entra Security Groups
-
-Security groups were created to simplify access management across workspaces:
-
-- [`Data Engineers`](./images/security/group-data-engineers.png): Team responsible for data ingestion, transformation, and Lakehouse management.
-- [`Data Analysts`](./images/security/group-data-analysts.png): Team focused on analytics, semantic modeling, and dashboard development.
-<br>
+**Example Dashboard:**
+![Dashboard Screenshot](./images/dashboard.png)
+*(Replace with your own dashboard image or link to an interactive version.)*
 
 ---
 
-### 🏢 3. Workspace Role Assignments
+## 📝 How to Run
 
-Access roles were assigned according to each team's responsibility within their environments:
+```bash
+# 1️⃣ Clone this repository
+git clone https://github.com/danillobsoliveira/executive-analytics-fabric-powerbi.git
+cd executive-analytics-fabric-powerbi
 
-#### 🧱 **Engineering Workspaces** (`Bronze` & `Silver` Layers)
+# 2️⃣ Set up environment (Python example)
+python -m venv .venv
+source .venv/bin/activate  # On Windows use `.venv\Scripts\activate`
+pip install -r requirements.txt
 
-| Workspace | Assigned Group     | Role        |
-|-----------|--------------------|-------------|
-| [`CRM_Engineering_Dev`](./images/infra/workspace-crm-engineering-dev.png)     | Data Engineers | Contributor |
-| [`CRM_Engineering_Staging`](./images/infra/workspace-crm-engineering-staging.png) | Data Engineers | Contributor |
-| [`CRM_Engineering_Prod`](./images/infra/workspace-crm-engineering-prod.png)   | Data Engineers | Viewer (optional) |
+# 3️⃣ Execute pipelines / notebooks
+# Adjust the command according to your stack
+python run_pipeline.py
 
-#### 📊 **Analytics Workspaces** (`Gold` Layer)
-
-| Workspace | Assigned Group   | Role        |
-|-----------|------------------|-------------|
-| [`CRM_Analytics_Dev`](./images/infra/workspace-crm-analytics-dev.png)       | Data Analysts | Contributor |
-| [`CRM_Analytics_Staging`](./images/infra/workspace-crm-analytics-staging.png) | Data Analysts | Contributor |
-| [`CRM_Analytics_Prod`](./images/infra/workspace-crm-analytics-prod.png)     | Data Analysts | Viewer      |
-<br>
-
----
-
-### ✅ Security Best Practices Followed
-
-- **Least Privilege Enforcement**: Each group has only the access level needed to perform its function in a specific environment.
-- **Environment Isolation**: Dev, Staging, and Prod workspaces ensure controlled and testable deployment flows.
-- **Separation of Duties**: Engineers work exclusively on ingestion/transformation; analysts work on reporting.
-- **Centralized Identity & Access Control**: Managed via Azure Entra ID, enabling scalable enterprise governance.
-- **Auditable Workspaces**: Production access is read-only for analysts and optionally restricted for engineers.
-
-📁 Security-related diagrams and screenshots are stored in:  
-[`/images/security`](./images/security)
-<br>
+# 4️⃣ View results
+# Provide instructions to open dashboard or report
+```
 
 ---
 
-## 🏛️ Medallion Architecture
-
-This project follows the Medallion data architecture pattern:
-
-### 🥉 Bronze – Raw Layer
-> Storage of raw data (synthetic and real), without transformations.
-
-| Table               | Source                      | Description                             |
-|----------------------|----------------------------|----------------------------------------|
-| `bronze_customer`    | Faker                      | Synthetic customer records                     |
-| `bronze_products`    | Faker                      | Products with categories and pricing       |
-| `bronze_sales`      | Faker                      | Simulated sales history         |
-| `bronze_ibge_states`| API IBGE                   | Official list of Brazilian states           |
-<br>
-
----
-
-### 🥈 Silver – Clean Layer
-> Cleaned data with standardized schemas, adjusted data types, and applied joins.
-
-| Table               | Description                          |
-|----------------------|------------------------------------|
-| `dim_customer`        | Customer dimension               |
-| `dim_product`        | Product dimension               |
-| `dim_time`          | Time dimension (2 years range)         |
-| `dim_geographic`       | Standardized geographic dimension    |
-| `fact_sales`        | 	Fact table with keys and metrics         |
-<br>
-
----
-
-### 🥇 Gold – Business Layer
-> Final business-ready data for aggregations and key indicators.
-
-| Table                   | Description                           |
-|--------------------------|-------------------------------------|
-| `total_sales_state`   | Total sales by state          |
-| `top_customers`        | Top customers by volume      |
-| `top_products`           | Best-selling products              |
-<br>
-
----
-
-## ⚙️ Pipeline Automation
-
-All ETL processes are automated using Microsoft Fabric Pipelines.
-
-🔁 Created Pipelines
-
-| Pipeline                   | Steps Description                           |
-|--------------------------|-------------------------------------|
-| `etl_bronze_to_silver`   | Cleaning, casting, joins, write to Silver          |
-| `etl_silver_to_gold`     | Aggregations and final indicators generation      |
-| `api_collection_ibge`           | Real-time data collection from IBGE API              |
-
-Each pipeline can be scheduled (e.g., daily) or triggered manually.
-<br>
-
----
-
-## 📊 Power BI Dashboards
-
-- 🗺️ Sales map by state (map and bar chart)
-- 📦 Top-selling products
-- 👥 Most active customers
-- 📉 Sales trend over time (line chart)
-
-> Dashboards were built directly within Power BI in Fabric, using native Lakehouse connections.
-
-📷 Dashboard screenshots are available in /imagens/dashboard.png.
-[`/images/tech_stack_badges.png`](./images/dashboard.png)
-<br>
-
-<br>
-
----
-
-## ⚡ Performance Best Practices
-
-- Storage in Delta Lake (compression + versioning)
-- Table partitioning in Silver and Gold layers (e.g., by state or date)
-- Reusable notebook modules
-- Clear separation of responsibilities across layers
-- Incremental ETL with future timestamp control (optional)
-<br>
-
----
-
-## 🧠 Demonstrated Skills
-
-- ✔️ Dimensional modeling (star schema)
-- ✔️ Lakehouse architecture
-- ✔️ Medallion architecture (Bronze → Silver → Gold)
-- ✔️ ETL with PySpark
-- ✔️ Delta Time Travel (data versioning)
-- ✔️ Automation with Fabric Pipelines
-- ✔️ Data visualization with Power BI
-- ✔️ Security and performance best practices
-<br>
-
----
-
-## 🗓️ License
-
-This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
-
----
-
-## 📣 Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request if you'd like to collaborate.
+## 📄 License
+This project is licensed under the **MIT License** – see [LICENSE](./LICENSE) for details.
 
 ---
 
