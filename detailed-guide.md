@@ -51,3 +51,18 @@ states.csv
 ![lh_crm_analytics](./images/lh_crm_analytics.png)   
 <br>
 
+## Transform Data and Load to Silver Delta Tables
+
+> Now that you have ingested the raw CRM data into the **Bronze layer** of your lakehouse, it’s time to clean, standardize, and store it as **Delta tables** in the **Silver layer**.
+
+1. While viewing the contents of the **Bronze** folder in your lakehouse, go to the **Open notebook** menu and select **New notebook**.
+2. Rename the notebook to **transform_to_silver** by selecting the notebook name at the top-left and entering the new title.
+3. In this notebook, you’ll write transformation logic to:
+* Clean and validate raw CSV data from the Bronze folder.
+* Enforce correct data types and naming conventions.
+* Save processed data as **Delta tables** in the **Silver folder** within your lakehouse.
+
+> **Note:** Silver tables provide curated and reliable data for further enrichment and aggregation in the Gold layer, ensuring downstream analytics are based on clean and consistent information.
+
+
+
